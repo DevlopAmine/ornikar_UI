@@ -10,6 +10,8 @@ import org.ornikar.pageObjects.ConnexionPage;
 import org.ornikar.pageObjects.GarantiePage;
 import org.ornikar.utilities.PropertiesReader;
 
+import static org.ornikar.stepDefinitions.BaseSteps.jAttendsSecondes;
+
 public class AssuranceAutoSteps {
 
     private final WebDriver driver = Hooks.driver;
@@ -46,7 +48,6 @@ public class AssuranceAutoSteps {
     @And("Je verifie la presence du modal Je me connecte à")
     public void jeVerifieLaPresenceDuModalJeMeConnecteÀ() throws Exception {
         connexionPage = new ConnexionPage(driver, wait);
-
         connexionPage.apparitionModal(driver);
     }
 
@@ -54,6 +55,15 @@ public class AssuranceAutoSteps {
     public void jeSaisisLesIdentifiantsEtJeSoumets(String email, String pwd) {
         connexionPage = new ConnexionPage(driver, wait);
         connexionPage.saisiDesIdentifsEtEnvoi(email, pwd);
+
+    }
+
+    @When("Je me positionne sur l element {string}")
+    public void jeMePositionneSurLElement(String locator) throws Exception {
+        assurancePage = new AssurancePage(driver, wait);
+        assurancePage.hover(locator);
+        jAttendsSecondes(2);
+
 
     }
 }

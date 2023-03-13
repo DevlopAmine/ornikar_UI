@@ -1,5 +1,6 @@
 package org.ornikar.stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
@@ -62,6 +63,21 @@ public class BaseSteps {
         assertTrue("The element " + locator + " is not present on the current page", isPresent);
     }
 
+    @Then("L element {string} est visible")
+    public void the_element_is_visible(String locator) throws Exception {
+        locator = PropertiesReader.getValue(locator);
+        System.out.println();
+        System.out.println("CHECKING THE VISIBILITY OF THE ELEMENT " + locator);
+        boolean isVisible;
+        try {
+            isVisible = SeleniumUtils.waitAndFindElement(driver, SeleniumUtils.getLocatorByString(locator)).isDisplayed();
+        } catch (WebDriverException e) {
+            isVisible = false;
+        }
+        assertTrue("The element " + locator + " is not present on the current page", isVisible);
+        jAttendsSecondes(1);
+    }
+
     private boolean isClickable(String element) {
         boolean isClickable;
         try {
@@ -70,5 +86,12 @@ public class BaseSteps {
             isClickable = false;
         }
         return isClickable;
+    }
+
+    @And("Je retourne en arrière")
+    public void jeRetourneEnArrière() throws InterruptedException {
+        jAttendsSecondes(1);
+        driver.navigate().back();
+        jAttendsSecondes(1);
     }
 }

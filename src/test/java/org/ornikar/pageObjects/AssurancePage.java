@@ -3,11 +3,14 @@ package org.ornikar.pageObjects;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.ornikar.utilities.BaseClass;
+import org.ornikar.utilities.PropertiesReader;
+import org.ornikar.utilities.SeleniumUtils;
 
 import static org.ornikar.stepDefinitions.BaseSteps.jAttendsSecondes;
 
@@ -38,6 +41,7 @@ public class AssurancePage extends BaseClass {
     @FindBy(css = "span.cc-1rzf.cc-yx2c")
     @CacheLookup
     private WebElement btnCloseChatbot;
+
 
 
     public AssurancePage(WebDriver driver, WebDriverWait wait) {
@@ -72,5 +76,15 @@ public class AssurancePage extends BaseClass {
 //        btnCloseChatbot.click();
     }
 
+    public void hover(String locator) throws Exception {
+        locator = PropertiesReader.getValue(locator);
+        System.out.println();
+        System.out.println("POSITIONING ON THE ELEMENT : " + locator);
+        WebElement element = SeleniumUtils.waitAndFindElement(getDriver(), SeleniumUtils.getLocatorByString(locator));
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(element).perform();
+        System.out.println("Done Mouse hover on 'Permis de conduire'");
+
+    }
 
 }
