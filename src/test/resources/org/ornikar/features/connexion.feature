@@ -7,7 +7,7 @@ Feature: Tester la connexion
 
   Scenario: Cas de Test avec identifiants invalides
 
-    Given Je clique sur l element "btn_connexion"
+    Given Je clique sur l element "btn_connexion" en JS
     And J attends 1 secondes
     And Je verifie la presence du modal Je me connecte à
     And Je saisis les identifiants amine@gm.com,123456 et je soumets

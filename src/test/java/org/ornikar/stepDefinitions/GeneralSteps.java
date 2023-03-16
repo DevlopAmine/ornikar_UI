@@ -2,6 +2,7 @@ package org.ornikar.stepDefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -57,6 +58,14 @@ public class GeneralSteps {
         System.out.println("SWITCHING TO FRAME " + string);
         WebElement element = SeleniumUtils.waitAndFindElement(driver, SeleniumUtils.getLocatorByString(string));
         driver.switchTo().frame(element);
+    }
+
+    @When("Je clique sur l element {string} en JS")
+    public void clickJS(String locator) throws Exception {
+        locator = PropertiesReader.getValue(locator);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element = SeleniumUtils.waitAndFindElement(driver, SeleniumUtils.getLocatorByString(locator));
+        js.executeScript("arguments[0].click();", element);
     }
 
     @When("Je quitte le frame")
